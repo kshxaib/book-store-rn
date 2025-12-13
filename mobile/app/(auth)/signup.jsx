@@ -1,10 +1,101 @@
-import { View, Text } from 'react-native'
-import React from 'react'
+import { View, Text, KeyboardAvoidingView, Platform, TextInput, ActivityIndicator } from 'react-native'
+import styles from '../../assets/styles/signup.style'
+import { Ionicons } from '@expo/vector-icons'
+import COLORS from '../../constants/colors'
+import { useState } from 'react'
+import { TouchableOpacity } from 'react-native'
+import { Link, useRouter } from 'expo-router'
 
 export default function Signup() {
+  const [username, setUsername] = useState("")
+  const [email, setEmail] = useState("")
+  const [password, setPassword] = useState("")
+  const [hidePassword, setHidePassword] = useState(true)
+  const [isLoading, setIsLoading] = useState(false)
+
+  const router = useRouter()
+  const handleSignup = () => { }
+
   return (
-    <View>
-      <Text>Signup</Text>
-    </View>
+    <KeyboardAvoidingView style={{flex: 1}} behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
+      <View style={styles.container}>
+        <View style={styles.card}>
+          <View style={styles.header}>
+            <Text style={styles.title}>Book Store</Text>
+            <Text style={styles.subtitle}>Share your favorite books with the world</Text>
+          </View>
+
+          <View style={styles.formContainer}>
+            <View style={styles.inputGroup}>
+              <Text style={styles.label}>Username</Text>
+              <View style={styles.inputContainer}>
+                <Ionicons name={"person-outline"} size={24} color={COLORS.primary} style={styles.inputIcon} />
+                <TextInput
+                  style={styles.input}
+                  placeholder='John Doe'
+                  placeholderTextColor={COLORS.placeholderText}
+                  value={username}
+                  onChangeText={setUsername}
+                  autoCapitalize="none"
+                />
+              </View>
+            </View>
+
+            <View style={styles.inputGroup}>
+              <Text style={styles.label}>Email</Text>
+              <View style={styles.inputContainer}>
+                <Ionicons name={"mail-outline"} size={24} color={COLORS.primary} style={styles.inputIcon} />
+                <TextInput
+                  style={styles.input}
+                  placeholder='Enter your email'
+                  placeholderTextColor={COLORS.placeholderText}
+                  value={email}
+                  onChangeText={setEmail}
+                  autoCapitalize="none"
+                />
+              </View>
+            </View>
+
+            <View style={styles.inputGroup}>
+              <Text style={styles.label}>Password</Text>
+              <View style={styles.inputContainer}>
+                <Ionicons name={"lock-closed-outline"} size={24} color={COLORS.primary} style={styles.inputIcon} />
+                <TextInput
+                  style={styles.input}
+                  placeholder='Enter your password'
+                  placeholderTextColor={COLORS.placeholderText}
+                  value={password}
+                  onChangeText={setPassword}
+                  secureTextEntry={hidePassword}
+                />
+                <TouchableOpacity
+                  onPress={() => setHidePassword(!hidePassword)}
+                  style={styles.eyeIcon}
+                >
+                  <Ionicons name={hidePassword ? "eye-off-outline" : "eye-outline"} size={24} color={COLORS.primary} />
+                </TouchableOpacity>
+              </View>
+            </View>
+             
+            <TouchableOpacity style={styles.button} onPress={handleSignup} disabled={isLoading}>
+              {
+                isLoading ? (
+                  <ActivityIndicator color="#ffffffff" />
+                ) : (
+                  <Text style={styles.buttonText}>Sign Up</Text>
+                ) 
+              }
+            </TouchableOpacity>
+
+            <View style={styles.footer}>
+              <Text style={styles.footerText}>Already have an account?</Text>
+              <TouchableOpacity onPress={() => router.back()}>
+                <Text style={{color: COLORS.primary, fontWeight: "bold"}}>Login</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+        </View>
+      </View>
+    </KeyboardAvoidingView>
   )
 }
