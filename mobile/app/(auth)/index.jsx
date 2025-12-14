@@ -12,7 +12,9 @@ export default function Login() {
   const [hidePassword, setHidePassword] = useState(true)
   const [isLoading, setIsLoading] = useState(false)
 
-  const handleLogin = () => { }
+  const handleLogin = () => {
+    
+  }
 
   return (
     <KeyboardAvoidingView style={{flex: 1}} behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
