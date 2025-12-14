@@ -15,7 +15,7 @@ job.start();
 app.use(express.json());
 app.use(cors());
 
-app.get("/", (req, res) => {
+app.get("/cron-endpoint", (req, res) => {
   res.send("API is running...")
   console.log("API is running...")
 })
