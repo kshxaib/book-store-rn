@@ -19,9 +19,8 @@ export default function Signup() {
   const handleSignup = async () => {
     const result = await register(username, email, password)
     if(!result.success) Alert.alert("Error", result.error)
+    router.push("/")
   }
-  console.log("user: ", user)
-  console.log("token: ", token)
 
   return (
     <KeyboardAvoidingView style={{ flex: 1 }} behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
